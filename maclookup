@@ -39,7 +39,7 @@ readin('/usr/share/arp-scan/ieee-oui.txt');
 readin('/usr/share/arp-scan/ieee-iab.txt');
 readin('/usr/share/arp-scan/mac-vendor.txt');
 
-die("couldn't read any MAC list, is arp-scan installed ?\nARP-SCAN: https://github.com/royhills/arp-scan") unless %oui;
+die("Ooops, couldn't read any MAC list, is arp-scan installed??\nIf is not, download please install arp-scan or check the correct path to /usr/share/arp-scan/(ieee-oui.txt|ieee-iab.txt|mac-vendor.txt) files.\narp-scan repo: https://github.com/royhills/arp-scan\n") unless %oui;
 
 if ($ARGV[0]) {
 	while($ARGV[0]) {
@@ -59,7 +59,7 @@ while(<STDIN>) {
 		my $m = $1;
 		my $vendor = lookup($m);
 		$line =~ s,$m,$m ($vendor),;
-		# Modificacion para evitar el ^M
+		# Avoid ^M
 		$line =~ s/\r//g;
 	}
 	print "$line\n";
