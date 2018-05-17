@@ -1,5 +1,5 @@
 # maclookup
-Public Domain software created by Stuart Henderson
+Public Domain software created by Stuart Henderso on December 2011
 
 # USAGE
 
@@ -20,9 +20,11 @@ You can also get Vendors from your ARP Table output like this:
 ```
 arp -an | maclookup
 ? (192.168.19.77) at 00:1f:29:ca:fe:ca (Hewlett Packard) [ether] on eth0
-? (192.168.19.75) at 00:1f:29:ca:fe:cb (Hewlett Packard) [ether] on eth0
-? (192.168.19.74) at 00:1f:29:ca:fe:cc (Hewlett Packard) [ether] on eth0
-? (192.168.19.73) at 00:1f:29:ca:fe:cd (Hewlett Packard) [ether] on eth0
+? (192.168.19.75) at 00:00:87:ca:fe:cb (HITACHI, LTD.) [ether] on eth0
+? (192.168.19.74) at 00:26:cb:ca:fe:cc (CISCO SYSTEMS, INC.) [ether] on eth0
+? (192.168.19.73) at 00:50:56:ca:fe:cd (VMware, Inc.) [ether] on eth0
+? (192.168.19.73) at 00:1a:64:ca:fe:cf (IBM Corp) [ether] on eth0
+
 ```
 
 # Supported Formats
@@ -75,7 +77,7 @@ $ git clone https://github.com/h0cin/maclookup.git "maclookup" && cd maclookup &
 Then move the file to your favourite binary location:
 
 ```
-$ sudo mv -v maclookup /usr/local/bin 
+$ sudo mv maclookup /usr/local/bin 
 ```
 
 Check availability:
