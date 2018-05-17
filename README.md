@@ -31,11 +31,12 @@ arp -an | maclookup
 
 At the moment the following formats are supported:
 
+```
 00:11:22:33:44:55 - Traditional
 001122-334455 - (HP Procurve)
 0011-2233-4455 - (HP H3C)
 0011.2233.4455 - (Cisco)
-
+```
 
 # OSX
 ```
