@@ -1,0 +1,66 @@
+#!/usr/bin/perl -Tw
+
+# This file is in the public domain.
+# Stuart Henderson, December 2011
+
+sub readin($)
+{
+	my ($file) = @_;
+
+	if (open (IN, $file)) {
+		while (<IN>) {
+			chomp;
+			if (/\t/) {
+				my ($mac, $vendor) = split('\t');
+				$oui{lc($mac)} = $vendor;
+			}
+		}
+		close (IN);
+	}
+}
+
+sub lookup($)
+{
+	my $vendor = 'UNKNOWN';
+	my $n = lc(shift);
+	# Agrego el punto para las mac's CISCO
+	$n =~ s/[\.\-\:]//g;
+	while ($n ne '') {
+		$n =~ s/..$//;
+		if ($oui{$n}) {
+			$vendor = $oui{$n};
+			last;
+		}
+	}
+	return $vendor;
+}
+
+readin('/usr/share/arp-scan/ieee-oui.txt');
+readin('/usr/share/arp-scan/ieee-iab.txt');
+readin('/usr/share/arp-scan/mac-vendor.txt');
+
+die("couldn't read any MAC list, is arp-scan installed ?\nARP-SCAN: https://github.com/royhills/arp-scan") unless %oui;
+
+if ($ARGV[0]) {
+	while($ARGV[0]) {
+		my $m = shift;
+		printf "%s (%s)", $m, lookup($m);
+	}
+	exit;
+}
+while(<STDIN>) {
+	chomp;
+	my $line = $_;
+	# ([0-9a-f]{2}:){5}[0-9a-f]{2}	00:11:22:33:44:55
+	# [0-9a-f]{6}-[0-9a-f]{6}	001122-334455 (HP Procurve)
+	# [0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}	0011-2233-4455 (HP H3C)
+	# [0-9a-f]{4}.[0-9a-f]{4}.[0-9a-f]{4}	0011.2233.4455 (Cisco)
+	if ( /(([0-9a-f]{2}:){5}[0-9a-f]{2}|[0-9a-f]{6}-[0-9a-f]{6}|[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}|[0-9a-f]{4}.[0-9a-f]{4}.[0-9a-f]{4})/i ) {
+		my $m = $1;
+		my $vendor = lookup($m);
+		$line =~ s,$m,$m ($vendor),;
+		# Modificacion para evitar el ^M
+		$line =~ s/\r//g;
+	}
+	print "$line\n";
+}
