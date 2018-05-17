@@ -51,7 +51,7 @@ $ ls /usr/local/Cellar/arp-scan/1.9/share/arp-scan/
 ieee-iab.txt   ieee-oui.txt   mac-vendor.txt
 ```
 
-# BSD's & Linux & Others
+# Linux
 
 Just instal arp-scan, then clone this repo and place the maclookup file into your favourite exec path, an example
 using Debian/Ubuntu would be:
