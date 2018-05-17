@@ -9,6 +9,7 @@ You can echo one or a list (one per line) of MAC Addresses as follows:
 $ echo "00:09:0f:ca:f3:c0" | maclookup 
 00:09:0f:ca:f3:c0 (Fortinet Inc.)
 ```
+or
 
 ```
 cat list-of-macs.txt | maclookup
@@ -35,9 +36,9 @@ At the moment the following formats are supported:
 
 
 # OSX
-
+```
 NOT READY YET !
-
+```
 You can install arp-scan using:
 
 ```
@@ -86,4 +87,8 @@ $ which maclookup
 
 # OpenBSD 
 
+OpenBSD is awesome and only needs you to install the package:
 
+```
+$ doas pkg_add -vim maclookup
+```
